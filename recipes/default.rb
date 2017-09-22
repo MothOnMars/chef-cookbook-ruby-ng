@@ -22,7 +22,22 @@ apt_preference 'ruby-ng-02-enable_for_ruby' do
   pin_priority '666'
 end
 
-package "ruby#{node['ruby-ng']['ruby_version']}"
+v = node['ruby-ng']['ruby_version']
+
+execute "hold ruby#{v} package" do
+  command "apt-mark hold ruby#{v}"
+  action  :nothing
+end
+
+package "ruby#{v}" do
+  if node['ruby-ng']['ruby_package_version']
+    version node['ruby-ng']['ruby_package_version']
+  end
+
+  if node['ruby-ng']['hold_ruby_packages']
+    notifies :run, "execute[hold ruby#{v} package]", :immediate
+  end
+end
 
 bundler_version = node['ruby-ng']['bundler_version']
 

@@ -8,12 +8,17 @@ driver:
 
 provisioner:
   name: chef_solo
+  require_chef_omnibus: 12
 
 platforms:
-  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+    driver:
+      name: vagrant
+    driver_config:
+      gui: true
 
 suites:
-  - name: testkitchen_ruby_ng_cookbook
+  - name: testkitchen_ruby_ng_cookbook_default_versions
     run_list:
       - recipe[ruby-ng_test]
       - recipe[minitest-handler]
@@ -22,8 +27,19 @@ suites:
         recipes:
           - ruby-ng_test::default
       ruby-ng:
-        ruby_version: 2.1
-        # 1.9.8 is the newest version as of 05/13/2015, but we are testing if we can install
-        # a specific older version.
-        bundler_version: 1.9.7
-        
+        ruby_version: 2.3
+  - name: testkitchen_ruby_ng_cookbook_specific_versions
+    run_list:
+      - recipe[ruby-ng_test]
+      - recipe[minitest-handler]
+    attributes:
+      minitest:
+        recipes:
+          - ruby-ng_test::specific_versions
+      ruby-ng:
+        ruby_version: 2.3
+        ruby_package_version: "2.3.5-1bbox2~trusty1"
+        hold_ruby_packages: true
+        # 1.15.4 is the newest table version as of 09/21/2017, but we are testing
+        # if we can install a specific older version.
+        bundler_version: 1.15.3

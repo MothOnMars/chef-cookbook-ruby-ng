@@ -7,16 +7,8 @@ describe_recipe "ruby-ng::default" do
     package("ruby#{node['ruby-ng']['ruby_version']}").must_be_installed
   end
 
-  # This test requires that node['ruby-ng']['bundler_version'] is set to a specific value, not to
-  # "latest".
-  it 'Installs the correct version of the bundler gem' do
-    cmd = 'gem list bundler'
-    gem_list_bundler_output = shell_out!(cmd).stdout
-    bundler_version = node['ruby-ng']['bundler_version']
-    assert(
-      gem_list_bundler_output.include?("bundler (#{bundler_version})"),
-      "Expected bundler version #{bundler_version} " \
-        "to be the only version reported in the results of command '#{cmd}'")
+  it 'Installs the bundler gem' do
+    shell_out!('gem list bundler').stdout.must_match(/bundler \(/)
   end
 end
 
