@@ -24,18 +24,16 @@ end
 
 v = node['ruby-ng']['ruby_version']
 
-execute "hold ruby#{v} package" do
-  command "apt-mark hold ruby#{v}"
-  action  :nothing
-end
 
-package "ruby#{v}" do
+apt_package "ruby#{v}" do
   if node['ruby-ng']['ruby_package_version']
     version node['ruby-ng']['ruby_package_version']
   end
 
   if node['ruby-ng']['hold_ruby_packages']
-    notifies :run, "execute[hold ruby#{v} package]", :immediate
+    action :lock
+  else
+    action :unlock
   end
 end
 
