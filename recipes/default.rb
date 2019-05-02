@@ -34,6 +34,7 @@ apt_package "ruby#{v}" do
     action :lock
   else
     action :unlock
+    action :install
   end
 end
 
