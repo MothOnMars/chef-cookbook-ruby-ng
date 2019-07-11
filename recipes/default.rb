@@ -41,7 +41,7 @@ end
 bundler_version = node['ruby-ng']['bundler_version']
 
 # Ensure we are installing bundler in a clean environment
-execute 'gem uninstall bundler --all'
+execute 'gem uninstall bundler --all --executables'
 #gem_package 'bundler' do
 #  action :purge
 #end
