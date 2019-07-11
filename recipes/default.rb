@@ -40,6 +40,11 @@ end
 
 bundler_version = node['ruby-ng']['bundler_version']
 
+# Ensure we are installing bundler in a clean environment
+gem_package 'bundler' do
+  action :purge
+end
+
 gem_package 'bundler' do
   gem_binary '/usr/bin/gem'
   options '-n /usr/bin'
