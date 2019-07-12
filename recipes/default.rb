@@ -24,6 +24,10 @@ end
 
 v = node['ruby-ng']['ruby_version']
 
+apt_package "ruby2.3" do
+  action :unlock
+  action :purge
+end
 
 apt_package "ruby#{v}" do
   if node['ruby-ng']['ruby_package_version']
