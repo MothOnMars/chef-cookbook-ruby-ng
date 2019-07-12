@@ -24,11 +24,6 @@ end
 
 v = node['ruby-ng']['ruby_version']
 
-apt_package "ruby2.3" do
-  action :unlock
-  action :purge
-end
-
 apt_package "ruby#{v}" do
   if node['ruby-ng']['ruby_package_version']
     version node['ruby-ng']['ruby_package_version']
@@ -37,6 +32,7 @@ apt_package "ruby#{v}" do
   if node['ruby-ng']['hold_ruby_packages']
     action :lock
   else
+    Chef::Log.info "unlocking and installing ruby#{v}"
     action :unlock
     action :install
   end
@@ -45,7 +41,7 @@ end
 bundler_version = node['ruby-ng']['bundler_version']
 
 # Ensure we are installing bundler in a clean environment
-execute 'gem uninstall bundler --all --executables'
+#execute 'gem uninstall bundler --all --executables'
 #gem_package 'bundler' do
 #  action :purge
 #end
