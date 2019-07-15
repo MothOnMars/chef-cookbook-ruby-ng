@@ -47,6 +47,12 @@ bundler_version = node['ruby-ng']['bundler_version']
 #end
 
 gem_package 'bundler' do
+  action :uninstall
+  version '1.16.6'
+end
+
+
+gem_package 'bundler' do
   gem_binary '/usr/bin/gem'
   options '-n /usr/bin'
   if bundler_version == 'latest'
