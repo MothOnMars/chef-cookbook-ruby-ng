@@ -42,15 +42,14 @@ bundler_version = node['ruby-ng']['bundler_version']
 
 # Ensure we are installing bundler in a clean environment
 #execute 'gem uninstall bundler --all --executables'
-#gem_package 'bundler' do
-#  action :purge
-#end
-
 gem_package 'bundler' do
   action :purge
-  version '1.16.6'
 end
 
+#gem_package 'bundler' do
+#  action :purge
+#  version '1.16.6'
+#end
 
 gem_package 'bundler' do
   gem_binary '/usr/bin/gem'
