@@ -49,3 +49,7 @@ gem_package 'bundler' do
     version bundler_version
   end
 end
+
+link '/usr/bin/bundle' do
+  to '/etc/alternatives/bundle'
+end
