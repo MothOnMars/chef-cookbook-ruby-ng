@@ -1,3 +1,5 @@
+Chef::Log.info "mct ruby-ng in ng dev 1: #{node['ruby-ng']}"
+
 include_recipe 'build-essential'
 include_recipe 'ruby-ng::default'
 
