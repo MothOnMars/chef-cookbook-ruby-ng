@@ -24,7 +24,7 @@ end
 
 v = node['ruby-ng']['ruby_version']
 
-Chef::Log.info "mct ruby version: #{v}"
+Chef::Log.info "mct ruby version: #{v}" # why is this 2.6?
 Chef::Log.info "mct ruby_package_version: #{node['ruby-ng']['ruby_package_version']}"
 
 apt_package "ruby#{v}" do
